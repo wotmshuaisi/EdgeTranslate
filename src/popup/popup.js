@@ -16,10 +16,10 @@ let mutualTranslate = document.getElementById("mutual-translate");
 window.onload = function () {
     i18nHTML();
 
-    let arrowUp = document.getElementById("arrow-up");
-    let arrowDown = document.getElementById("arrow-down");
-    arrowDown.setAttribute("title", chrome.i18n.getMessage("Unfold"));
-    arrowUp.setAttribute("title", chrome.i18n.getMessage("Fold"));
+    // let arrowUp = document.getElementById("arrow-up");
+    // let arrowDown = document.getElementById("arrow-down");
+    // arrowDown.setAttribute("title", chrome.i18n.getMessage("Unfold"));
+    // arrowUp.setAttribute("title", chrome.i18n.getMessage("Fold"));
 
     sourceLanguage.onchange = function () {
         // 如果源语言是自动判断语言类型(值是auto),则按钮显示灰色，避免用户点击,如果不是，则显示蓝色，可以点击
@@ -101,9 +101,9 @@ window.onload = function () {
  */
 chrome.commands.onCommand.addListener((command) => {
     switch (command) {
-        case "change_language_setting":
-            settingSwitch();
-            break;
+        // case "change_language_setting":
+        //     settingSwitch();
+        //     break;
         case "exchange_source_target_lang":
             exchangeLanguage();
             break;
@@ -158,13 +158,13 @@ function saveOption(key, value) {
 function addEventListener() {
     document.getElementById("translateSubmit").addEventListener("click", translateSubmit);
     document.addEventListener("keypress", translatePreSubmit); // 对用户按下回车按键后的事件进行监听
-    document.getElementById("setting-switch").addEventListener("click", settingSwitch);
-    document.getElementById("google-page-translate").addEventListener("click", () => {
-        Messager.send("background", "translate_page_google");
-    });
-    document.getElementById("youdao-page-translate").addEventListener("click", () => {
-        Messager.send("background", "translate_page_youdao");
-    });
+    // document.getElementById("setting-switch").addEventListener("click", settingSwitch);
+    // document.getElementById("google-page-translate").addEventListener("click", () => {
+    //     Messager.send("background", "translate_page_google");
+    // });
+    // document.getElementById("youdao-page-translate").addEventListener("click", () => {
+    //     Messager.send("background", "translate_page_youdao");
+    // });
 }
 
 /**
@@ -219,23 +219,23 @@ function exchangeLanguage() {
 /**
  * 负责在option中隐藏或显示设置选项
  */
-function settingSwitch() {
-    let setting = document.getElementById("setting");
-    let arrowUp = document.getElementById("arrow-up");
-    let arrowDown = document.getElementById("arrow-down");
-    if (!setting.style.display || setting.style.display == "none") {
-        setting.style.display = "block";
-        arrowDown.style.display = "none";
-        arrowUp.style.display = "inline";
-        document.getElementById("tl").focus(); // after show settings block, the language element <select> will be auto focused
-        judgeValue(exchangeButton, sourceLanguage);
-    } else {
-        setting.style.display = "none";
-        arrowDown.style.display = "inline";
-        arrowUp.style.display = "none";
-        document.getElementById("translate_input").focus(); // after settings block disappear, the translation element <input> will be auto focused
-    }
-}
+// function settingSwitch() {
+//     let setting = document.getElementById("setting");
+//     let arrowUp = document.getElementById("arrow-up");
+//     let arrowDown = document.getElementById("arrow-down");
+//     if (!setting.style.display || setting.style.display == "none") {
+//         setting.style.display = "block";
+//         arrowDown.style.display = "none";
+//         arrowUp.style.display = "inline";
+//         document.getElementById("tl").focus(); // after show settings block, the language element <select> will be auto focused
+//         judgeValue(exchangeButton, sourceLanguage);
+//     } else {
+//         setting.style.display = "none";
+//         arrowDown.style.display = "inline";
+//         arrowUp.style.display = "none";
+//         document.getElementById("translate_input").focus(); // after settings block disappear, the translation element <input> will be auto focused
+//     }
+// }
 
 /**
  * 判断如果按下的是按钮是enter键，就调用翻译的函数

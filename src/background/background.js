@@ -1,8 +1,8 @@
 import {
     TRANSLATOR_MANAGER,
     translatePage,
-    youdaoPageTranslate,
-    executeYouDaoScript,
+    // youdaoPageTranslate,
+    // executeYouDaoScript,
     executeGoogleScript,
 } from "./library/translate.js";
 import {
@@ -42,32 +42,32 @@ const DEFAULT_SETTINGS = {
     // Default settings of source language and target language
     languageSetting: { sl: "auto", tl: BROWSER_LANGUAGES_MAP[chrome.i18n.getUILanguage()] },
     OtherSettings: {
-        MutualTranslate: false,
+        MutualTranslate: true,
         SelectTranslate: true,
         TranslateAfterDblClick: false,
         TranslateAfterSelect: false,
         CancelTextSelection: false,
-        UseGoogleAnalytics: true,
+        UseGoogleAnalytics: false,
         UsePDFjs: true,
     },
     DefaultTranslator: "GoogleTranslate",
-    DefaultPageTranslator: "YouDaoPageTranslate",
+    DefaultPageTranslator: "GoogleTranslate",
     HybridTranslatorConfig: {
         // The translators used in current hybrid translate.
-        translators: ["BaiduTranslate", "BingTranslate", "GoogleTranslate"],
+        translators: ["GoogleTranslate"],
 
         // The translators for each item.
         selections: {
             // ATTENTION: The following four items MUST HAVE THE SAME TRANSLATOR!
-            originalText: "BaiduTranslate",
-            mainMeaning: "BaiduTranslate",
-            tPronunciation: "BaiduTranslate",
-            sPronunciation: "BaiduTranslate",
+            originalText: "GoogleTranslate",
+            mainMeaning: "GoogleTranslate",
+            tPronunciation: "GoogleTranslate",
+            sPronunciation: "GoogleTranslate",
 
             // For the following three items, any translator combination is OK.
-            detailedMeanings: "BingTranslate",
+            detailedMeanings: "GoogleTranslate",
             definitions: "GoogleTranslate",
-            examples: "BaiduTranslate",
+            examples: "GoogleTranslate",
         },
     },
 };
@@ -93,11 +93,11 @@ chrome.contextMenus.create({
     contexts: ["page"],
 });
 
-chrome.contextMenus.create({
-    id: "translate_page_youdao",
-    title: chrome.i18n.getMessage("TranslatePageYouDao"),
-    contexts: ["browser_action"],
-});
+// chrome.contextMenus.create({
+//     id: "translate_page_youdao",
+//     title: chrome.i18n.getMessage("TranslatePageYouDao"),
+//     contexts: ["browser_action"],
+// });
 
 chrome.contextMenus.create({
     id: "translate_page_google",
@@ -155,10 +155,10 @@ chrome.runtime.onInstalled.addListener((details) => {
     if (process.env.NODE_ENV === "production") {
         if (details.reason === "install") {
             // 首次安装，引导用户查看wiki
-            chrome.tabs.create({
-                // 为wiki页面创建一个新的标签页
-                url: chrome.i18n.getMessage("WikiLink"),
-            });
+            // chrome.tabs.create({
+            //     // 为wiki页面创建一个新的标签页
+            //     url: chrome.i18n.getMessage("WikiLink"),
+            // });
 
             // 告知用户数据收集相关信息
             chrome.notifications.create("data_collection_notification", {
@@ -202,7 +202,7 @@ chrome.runtime.onInstalled.addListener((details) => {
         }
 
         // 卸载原因调查
-        chrome.runtime.setUninstallURL("https://wj.qq.com/s2/3265930/8f07/");
+        // chrome.runtime.setUninstallURL("");
     }
 });
 
@@ -252,9 +252,9 @@ chrome.contextMenus.onClicked.addListener((info) => {
         case "translate_page":
             translatePage();
             break;
-        case "translate_page_youdao":
-            executeYouDaoScript();
-            break;
+        // case "translate_page_youdao":
+        //     executeYouDaoScript();
+        //     break;
         case "translate_page_google":
             executeGoogleScript();
             break;
@@ -334,11 +334,11 @@ async function messageHandler(message, sender) {
             );
             return result;
         }
-        case "youdao_page_translate":
-            return youdaoPageTranslate(message.detail.request);
-        case "translate_page_youdao":
-            executeYouDaoScript();
-            return Promise.resolve();
+        // case "youdao_page_translate":
+        //     return youdaoPageTranslate(message.detail.request);
+        // case "translate_page_youdao":
+        //     executeYouDaoScript();
+        //     return Promise.resolve();
         case "translate_page_google":
             executeGoogleScript();
             return Promise.resolve();

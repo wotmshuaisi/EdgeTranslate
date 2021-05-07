@@ -1,7 +1,7 @@
-import BAIDU from "./baidu.js";
-import BING from "./bing.js";
+// import BAIDU from "./baidu.js";
+// import BING from "./bing.js";
 import GOOGLE from "./google.js";
-import TENCENT from "./tencent.js";
+// import TENCENT from "./tencent.js";
 import { log } from "../../../common/scripts/common.js";
 
 class HybridTranslator {
@@ -10,10 +10,10 @@ class HybridTranslator {
          * Real supported translators.
          */
         this.REAL_TRANSLATORS = {
-            BaiduTranslate: BAIDU,
-            BingTranslate: BING,
+            // BaiduTranslate: BAIDU,
+            // BingTranslate: BING,
             GoogleTranslate: GOOGLE,
-            TencentTranslate: TENCENT,
+            // TencentTranslate: TENCENT,
         };
 
         /**

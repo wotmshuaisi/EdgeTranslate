@@ -128,7 +128,7 @@ class GoogleTranslator {
         /**
          * Translate API.
          */
-        this.HOST = "https://translate.google.cn/";
+        this.HOST = "https://translate.google.com/";
         this.TRANSLATE_URL = `${this.HOST}translate_a/single?ie=UTF-8&client=webapp&otf=1&ssel=0&tsel=0&kc=5&dt=t&dt=at&dt=bd&dt=ex&dt=md&dt=rw&dt=ss&dt=rm`;
         this.TTS_URL = `${this.HOST}translate_tts?ie=UTF-8&client=webapp`;
 
@@ -168,16 +168,16 @@ class GoogleTranslator {
             128 > l
                 ? (e[f++] = l)
                 : (2048 > l
-                      ? (e[f++] = (l >> 6) | 192)
-                      : (55296 == (l & 64512) &&
+                    ? (e[f++] = (l >> 6) | 192)
+                    : (55296 == (l & 64512) &&
                         g + 1 < a.length &&
                         56320 == (a.charCodeAt(g + 1) & 64512)
-                            ? ((l = 65536 + ((l & 1023) << 10) + (a.charCodeAt(++g) & 1023)),
-                              (e[f++] = (l >> 18) | 240),
-                              (e[f++] = ((l >> 12) & 63) | 128))
-                            : (e[f++] = (l >> 12) | 224),
+                        ? ((l = 65536 + ((l & 1023) << 10) + (a.charCodeAt(++g) & 1023)),
+                            (e[f++] = (l >> 18) | 240),
+                            (e[f++] = ((l >> 12) & 63) | 128))
+                        : (e[f++] = (l >> 12) | 224),
                         (e[f++] = ((l >> 6) & 63) | 128)),
-                  (e[f++] = (l & 63) | 128));
+                    (e[f++] = (l & 63) | 128));
         }
         a = b;
         for (f = 0; f < e.length; f++) {

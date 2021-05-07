@@ -54,6 +54,15 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    document.addEventListener("keydown", (event) => {
+        if (event.ctrlKey && event.key === "e") {
+            translateSubmit();
+        }
+        if (event.ctrlKey && event.key === "`") {
+            pronounceSubmit();
+        }
+    });
+
     document.addEventListener("dblclick", (event) => {
         selectTranslate(event, true);
     });
@@ -80,7 +89,6 @@ window.addEventListener("DOMContentLoaded", () => {
                     if (OtherSettings) {
                         // store the position which would be transferred to display.js through messager.
                         currentPosition = [event.clientX, event.clientY];
-
                         // Show translating result instantly.
                         if (
                             OtherSettings["TranslateAfterSelect"] ||

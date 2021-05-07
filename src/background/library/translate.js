@@ -1,4 +1,4 @@
-import axios from "./axios.js";
+// import axios from "./axios.js";
 import HYBRID_TRANSLATOR from "./translators/hybrid.js";
 import { sendMessageToCurrentTab } from "./common.js";
 import { log } from "common/scripts/common.js";
@@ -328,13 +328,13 @@ class TranslatorManager {
         Messager.send("options", "hybrid_translator_config_updated", {
             config: newConfig,
             availableTranslators: availableTranslators.slice(1),
-        }).catch(() => {});
+        }).catch(() => { });
 
         // Send message to result frame to update options.
         sendMessageToCurrentTab("update_translator_options", {
             selectedTranslator,
             availableTranslators,
-        }).catch(() => {});
+        }).catch(() => { });
     }
 
     /**
@@ -367,51 +367,52 @@ function translatePage() {
     chrome.storage.sync.get(["DefaultPageTranslator"], (result) => {
         let translator = result.DefaultPageTranslator;
         switch (translator) {
-            case "YouDaoPageTranslate":
-                executeYouDaoScript();
-                break;
+            // case "YouDaoPageTranslate":
+            //     executeYouDaoScript();
+            //     break;
             case "GooglePageTranslate":
                 executeGoogleScript();
                 break;
             default:
-                executeYouDaoScript();
+                // executeYouDaoScript();
+                executeGoogleScript();
                 break;
         }
     });
 }
 
-/**
- * 有道翻译接口
- * @param {Object} request request
- *
- * @returns {Promise<Object>} response Promise
- */
-async function youdaoPageTranslate(request) {
-    let isPost = request.type === "POST";
-    let response = await axios({
-        method: request.type,
-        baseURL: request.url,
-        headers: isPost ? { "Content-Type": "application/x-www-form-urlencoded" } : {},
-        data: isPost ? request.data : null,
-    });
+// /**
+//  * 有道翻译接口
+//  * @param {Object} request request
+//  *
+//  * @returns {Promise<Object>} response Promise
+//  */
+// async function youdaoPageTranslate(request) {
+//     let isPost = request.type === "POST";
+//     let response = await axios({
+//         method: request.type,
+//         baseURL: request.url,
+//         headers: isPost ? { "Content-Type": "application/x-www-form-urlencoded" } : {},
+//         data: isPost ? request.data : null,
+//     });
 
-    return {
-        response: response.status === 200 ? JSON.stringify(response.data) : null,
-        index: request.index,
-    };
-}
+//     return {
+//         response: response.status === 200 ? JSON.stringify(response.data) : null,
+//         index: request.index,
+//     };
+// }
 
-/**
- * 执行有道网页翻译相关脚本
- */
-function executeYouDaoScript() {
-    chrome.tabs.executeScript({ file: "/youdao/main.js" }, (result) => {
-        if (chrome.runtime.lastError) {
-            log(`Chrome runtime error: ${chrome.runtime.lastError}`);
-            log(`Detail: ${result}`);
-        }
-    });
-}
+// /**
+//  * 执行有道网页翻译相关脚本
+//  */
+// function executeYouDaoScript() {
+//     chrome.tabs.executeScript({ file: "/youdao/main.js" }, (result) => {
+//         if (chrome.runtime.lastError) {
+//             log(`Chrome runtime error: ${chrome.runtime.lastError}`);
+//             log(`Detail: ${result}`);
+//         }
+//     });
+// }
 
 /**
  * 执行谷歌网页翻译相关脚本。
@@ -485,7 +486,7 @@ EVENT_MANAGER.addEventListener(EVENT_MANAGER.EVENTS.PRONOUNCE_ERROR, (detail) =>
 export {
     TRANSLATOR_MANAGER,
     translatePage,
-    youdaoPageTranslate,
-    executeYouDaoScript,
+    // youdaoPageTranslate,
+    // executeYouDaoScript,
     executeGoogleScript,
 };
