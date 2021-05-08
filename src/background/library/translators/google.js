@@ -410,6 +410,8 @@ class GoogleTranslator {
 
             if (response.status === 200) {
                 let result = this.parseResult(response.data);
+                result.sl = from;
+                result.tl = to;
                 return result;
             }
 

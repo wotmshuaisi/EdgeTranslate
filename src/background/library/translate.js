@@ -328,13 +328,13 @@ class TranslatorManager {
         Messager.send("options", "hybrid_translator_config_updated", {
             config: newConfig,
             availableTranslators: availableTranslators.slice(1),
-        }).catch(() => { });
+        }).catch(() => {});
 
         // Send message to result frame to update options.
         sendMessageToCurrentTab("update_translator_options", {
             selectedTranslator,
             availableTranslators,
-        }).catch(() => { });
+        }).catch(() => {});
     }
 
     /**
