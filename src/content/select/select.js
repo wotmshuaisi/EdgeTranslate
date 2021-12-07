@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener("keydown", (event) => {
-        if (event.ctrlKey && event.key === "e") {
+        if (event.ctrlKey && event.key === "q") {
             translateSubmit();
         }
         if (event.ctrlKey && event.key === "`") {
