@@ -290,6 +290,24 @@ class GoogleTranslator {
                         result.from = items;
                         // log(result.from);
                         break;
+                    // synonym
+                    case 11:
+                        result.synonyms = new Array();
+                        items.forEach((item)=> {
+                            let tmpSynonyms = new Array();
+                            item[1].forEach((item) => {
+                                if (item[0].length > 4 ) {
+                                    tmpSynonyms.push(item[0].slice(0, 4).join(", "));
+                                }else{
+                                    tmpSynonyms.push(item[0].join(", "));
+                                }
+                            });
+                            result.synonyms.push({
+                                type: item[0],
+                                words: tmpSynonyms,
+                            });
+                        });
+                        break;
                     // 单词的定义及对应例子
                     case 12:
                         result.definitions = new Array();
